@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:smart_planner/app/core/presentation/widgets/button_widget_custom.dart';
 import 'package:smart_planner/app/core/utils/color_utils.dart';
+
+import '../../../../core/presentation/widgets/buttons_design.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -55,18 +56,14 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ButtonWidgetCustom(
-                        action: () => Modular.to.pushNamed('login'),
-                        content: Text(
-                          'ENTRAR NO APP',
-                          style: Theme.of(context).textTheme.overline,
-                        )),
-                    ButtonWidgetCustom(
-                        action: () => Modular.to.pushNamed('create_account'),
-                        content: Text(
-                          'CADASTRAR CONTA',
-                          style: Theme.of(context).textTheme.overline,
-                        ))
+                    ButtonDesign(
+                      action: () => Modular.to.pushNamed('login'),
+                      text: 'ENTRAR NO APP',
+                    ),
+                    ButtonDesign(
+                      action: () => Modular.to.pushNamed('create_account'),
+                      text: 'CADASTRAR CONTA',
+                    )
                   ],
                 )
               ],

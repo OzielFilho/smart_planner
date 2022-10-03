@@ -135,7 +135,7 @@ class _LoginAppPageState extends State<LoginAppPage> {
                           ),
                           TextButton(
                               onPressed: () =>
-                                  Modular.to.pushNamed('recovery_account'),
+                                  Modular.to.pushNamed('recovery_password'),
                               child: Text(
                                 'Clique aqui e recupere',
                                 style: ThemeApp.theme.textTheme.caption,

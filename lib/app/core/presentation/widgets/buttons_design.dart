@@ -15,6 +15,7 @@ class ButtonDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      height: MediaQuery.of(context).size.height * 0.05,
       onPressed: action,
       color: ColorUtils.whiteColor,
       child: Row(
