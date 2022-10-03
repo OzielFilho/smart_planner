@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "774357135052",
+    "project_id": "smartplanner-110b0",
+    "storage_bucket": "smartplanner-110b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774357135052:android:63c0b3f86b87b12e175c69",
+        "android_client_info": {
+          "package_name": "com.lum.smart_planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774357135052-1t9grm2ivhngdr5tf27r48j0fft2t85v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtAo_994GrTinY8YSLSub-CnBOwiZ2qhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774357135052-1t9grm2ivhngdr5tf27r48j0fft2t85v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
