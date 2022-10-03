@@ -26,6 +26,16 @@ class EmailOrPasswordInvalidErrorState extends ErrorState {
   EmailOrPasswordInvalidErrorState(super.message);
 }
 
+class ParamsCreateAccountEmptyErrorState extends ErrorState {
+  ParamsCreateAccountEmptyErrorState(super.message);
+}
+
+class ParamsCreateAccountInvalidErrorState extends ErrorState {
+  ParamsCreateAccountInvalidErrorState(super.message);
+}
+
 class SuccessHomeState extends SuccessState {}
 
 class SuccessRecoveryState extends SuccessState {}
+
+class SuccessCreateAccountState extends SuccessState {}

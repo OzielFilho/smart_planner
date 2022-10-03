@@ -35,10 +35,9 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
         bloc: _recoveryController,
         listener: (context, state) {
           if (state is SuccessRecoveryState) {
-            WidgetUtils.showSnackBar(context, '',
-                actionText:
-                    'Dentro de alguns segundos você receberá um email de recuperação de senha',
-                onTap: () => Modular.to.pop());
+            WidgetUtils.showSnackBar(context,
+                'Dentro de alguns segundos você receberá um email de recuperação de senha',
+                actionText: 'Fechar', onTap: () => Modular.to.pop());
           }
         },
         builder: (context, state) => Padding(

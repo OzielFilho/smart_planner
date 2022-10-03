@@ -43,3 +43,13 @@ class ParamsInvalidRecoveryPasswordFailure extends Failure {
   @override
   List<Object?> get props => const <dynamic>[];
 }
+
+class ParamsEmptyCreateAccountFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
+class ParamsInvalidCreateAccountFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}

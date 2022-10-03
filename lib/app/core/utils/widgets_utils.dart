@@ -11,7 +11,11 @@ class WidgetUtils {
         title,
         style: const TextStyle(color: Colors.white),
       ),
-      action: SnackBarAction(label: actionText!, onPressed: onTap!),
+      action: SnackBarAction(
+        label: actionText!,
+        onPressed: onTap!,
+        textColor: ColorUtils.primaryColor,
+      ),
     ));
   }
 
@@ -26,7 +30,7 @@ class WidgetUtils {
             return AlertDialog(
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                backgroundColor: ColorUtils.blackColor,
+                backgroundColor: ColorUtils.primaryColor,
                 title: Text(title, style: ThemeApp.theme.textTheme.headline1),
                 content: Builder(
                   builder: (context) {
@@ -35,7 +39,7 @@ class WidgetUtils {
                     return content != null
                         ? SizedBox(
                             width: width,
-                            height: height * 0.145,
+                            height: height * 0.16,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,

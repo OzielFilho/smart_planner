@@ -1,16 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_planner/app/core/services/firebase_store_service.dart';
+import 'package:smart_planner/app/modules/authentication/infrastructure/models/user_create_account_model.dart';
 import 'package:smart_planner/app/modules/authentication/infrastructure/models/user_result_model.dart';
 
 abstract class FirebaseAuthService {
   Future<UserResultModel> loginWithEmailAndPassword(
       String email, String password);
   Future<String> recoveryPasswordEmail(String email);
+  Future<String> createAccount(UserCreateAccountModel userModel);
 }
 
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
   final FirebaseAuth _auth;
-
-  FirebaseAuthServiceImpl(this._auth);
+  final FirebaseStoreService _firebaseStoreService;
+  FirebaseAuthServiceImpl(this._auth, this._firebaseStoreService);
 
   @override
   Future<UserResultModel> loginWithEmailAndPassword(
@@ -28,6 +31,21 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
       return '';
     } catch (erro) {
       return 'Usuário não encontrado ou Serviço indisponível';
+    }
+  }
+
+  @override
+  Future<String> createAccount(UserCreateAccountModel userModel) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: userModel.email, password: userModel.password);
+      await _auth.currentUser!.sendEmailVerification();
+
+      _firebaseStoreService.createDocument(
+          userModel.toMap(), 'users', _auth.currentUser!.uid);
+      return '';
+    } catch (e) {
+      return 'Usuário não pode ser criado';
     }
   }
 }
