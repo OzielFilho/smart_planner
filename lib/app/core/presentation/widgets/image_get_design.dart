@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 import 'package:smart_planner/app/core/utils/color_utils.dart';
 
 class ImageGetDesign extends StatelessWidget {
-  const ImageGetDesign({Key? key}) : super(key: key);
+  final Function() action;
+  final File? image;
+  const ImageGetDesign({Key? key, required this.action, this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(100.0),
-      onTap: () {},
+      onTap: action,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -17,6 +23,9 @@ class ImageGetDesign extends StatelessWidget {
             height: 120,
             width: 110,
             decoration: BoxDecoration(
+              image: image != null
+                  ? DecorationImage(image: FileImage(image!), fit: BoxFit.fill)
+                  : null,
               border: Border.all(color: ColorUtils.whiteColor, width: 2),
               shape: BoxShape.circle,
             ),

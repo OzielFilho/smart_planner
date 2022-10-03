@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smart_planner/app/core/presentation/widgets/buttons_design.dart';
 import 'package:smart_planner/app/core/presentation/widgets/form_desing.dart';
 import 'package:smart_planner/app/core/presentation/widgets/loading_desing.dart';
+import 'package:smart_planner/app/core/services/firestorage_service.dart';
 import 'package:smart_planner/app/core/utils/color_utils.dart';
 import 'package:smart_planner/app/core/utils/widgets_utils.dart';
 import 'package:smart_planner/app/modules/authentication/presentation/controllers/create_account_controller/create_account_event.dart';
@@ -13,6 +15,7 @@ import 'package:smart_planner/app/modules/authentication/presentation/controller
 
 import '../../../../../core/presentation/controllers/app_state.dart';
 import '../../../../../core/presentation/widgets/image_get_design.dart';
+import '../../../../../core/services/image_service.dart';
 import '../../../../../core/theme/theme_app.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -30,6 +33,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   final _blocCreateAccount =
       Modular.get<CreateAccountWithEmailAndPasswordBloc>();
+  final _firestorage = Modular.get<FirestorageService>();
 
   _clearControllers() {
     _controllerName.clear();
@@ -40,7 +44,48 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   bool _visibilityPassword = true;
 
-  late File _image;
+  File? _file;
+
+  _imageAction() {
+    WidgetUtils.showOkDialog(
+        context,
+        'Escolha uma Imagem',
+        'Escolha uma imagem para o seu perfil',
+        'Fechar',
+        () => Modular.to.pop(),
+        content: Column(
+          children: [
+            InkWell(
+              child: Text(
+                '1. Câmera',
+                style: ThemeApp.theme.textTheme.headline2,
+              ),
+              onTap: () async {
+                final file = await ImageServiceImpl(ImagePicker()).getImage();
+                _file = file;
+                setState(() {});
+                Modular.to.pop();
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              child: Text(
+                '2. Galeria',
+                style: ThemeApp.theme.textTheme.headline2,
+              ),
+              onTap: () async {
+                final file = await ImageServiceImpl(ImagePicker())
+                    .getImage(isCamera: false);
+                _file = file;
+                setState(() {});
+                Modular.to.pop();
+              },
+            ),
+          ],
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +100,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         listener: (context, state) {
           if (state is SuccessCreateAccountState) {
             _clearControllers();
-            WidgetUtils.showSnackBar(context, '',
-                actionText: 'Usuário Criado com Sucesso!',
-                onTap: () => Modular.to.pop());
+            WidgetUtils.showSnackBar(context, 'Usuário Criado com Sucesso!',
+                actionText: 'Fechar', onTap: () => Modular.to.pop());
             Modular.to.pop();
           }
         },
@@ -79,8 +123,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Align(
-                    alignment: Alignment.center, child: ImageGetDesign()),
+                Align(
+                    alignment: Alignment.center,
+                    child: ImageGetDesign(
+                      image: _file,
+                      action: _imageAction,
+                    )),
                 const SizedBox(
                   height: 10,
                 ),
@@ -163,7 +211,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     ? const Center(child: LoadingDesign())
                     : ButtonDesign(
                         text: 'Criar Conta',
-                        action: () {
+                        action: () async {
+                          final urlImage =
+                              await _firestorage.uploadDocument(_file, 'users');
                           _blocCreateAccount.add(
                               CreateAccountWithEmailAndPasswordEvent(
                                   email: _controllerEmail.text,
@@ -171,7 +221,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   passwordConfirme:
                                       _controllerPasswordConfirme.text,
                                   name: _controllerName.text,
-                                  photo: ''));
+                                  photo: urlImage));
                         })
               ],
             ),

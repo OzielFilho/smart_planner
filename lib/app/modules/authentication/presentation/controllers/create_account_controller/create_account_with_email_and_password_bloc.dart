@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:smart_planner/app/core/utils/validations.dart';
-import 'package:smart_planner/app/modules/authentication/infrastructure/models/user_create_account_model.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/presentation/controllers/app_state.dart';
