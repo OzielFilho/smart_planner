@@ -27,3 +27,5 @@ class EmailOrPasswordInvalidErrorState extends ErrorState {
 }
 
 class SuccessHomeState extends SuccessState {}
+
+class SuccessRecoveryState extends SuccessState {}
