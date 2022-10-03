@@ -1,14 +1,19 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:smart_planner/app/modules/authentication/infrastructure/repositories/login_user_repository_impl.dart';
 import 'package:smart_planner/app/modules/authentication/infrastructure/repositories/recovery_password_repository_impl.dart';
+import 'package:smart_planner/app/modules/authentication/presentation/controllers/create_account_controller/create_account_with_email_and_password_bloc.dart';
 import 'package:smart_planner/app/modules/authentication/presentation/controllers/recovery_password_user_controller/recovery_password_with_email_bloc.dart';
+import 'package:smart_planner/app/modules/authentication/presentation/pages/create_account/create_account_page.dart';
 import 'package:smart_planner/app/modules/authentication/presentation/pages/login/login_page.dart';
 import 'package:smart_planner/app/modules/authentication/presentation/pages/recovery_password/recovery_password_page.dart';
 
+import 'domain/usecases/create_account/create_account_with_email_and_password.dart';
 import 'domain/usecases/login/login_with_email_and_password.dart';
 import 'domain/usecases/recovery_password/recovery_with_email.dart';
+import 'external/create_account/create_account_firebase.dart';
 import 'external/login/firebase/login_user_firebase.dart';
 import 'external/recovery_password/recovery_password_firebase.dart';
+import 'infrastructure/repositories/create_account_repository_impl.dart';
 import 'presentation/controllers/login_user_controller/login_with_email_and_password_bloc.dart';
 import 'presentation/pages/autentication_page.dart';
 
@@ -25,6 +30,11 @@ class AuthenticationModule extends Module {
     Bind((i) => RecoveryPasswordRepositoryImpl(i(), i())),
     Bind((i) => RecoveryWithEmail(i())),
     Bind((i) => RecoveryPasswordWithEmailBloc(i())),
+    //Create Account - Email,Name, Password and Photo
+    Bind((i) => CreateAccountFirebase(i())),
+    Bind((i) => CreateAccountRepositoryImpl(i(), i())),
+    Bind((i) => CreateAccountWithEmailAndPassword(i())),
+    Bind((i) => CreateAccountWithEmailAndPasswordBloc(i())),
   ];
 
   @override
@@ -34,5 +44,7 @@ class AuthenticationModule extends Module {
     ChildRoute('/login', child: (context, args) => const LoginAppPage()),
     ChildRoute('/recovery_password',
         child: (context, args) => const RecoveryPasswordPage()),
+    ChildRoute('/create_account',
+        child: (context, args) => const CreateAccountPage()),
   ];
 }
