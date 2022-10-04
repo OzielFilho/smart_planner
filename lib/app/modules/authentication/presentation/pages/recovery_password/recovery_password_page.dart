@@ -39,6 +39,12 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
                 'Dentro de alguns segundos você receberá um email de recuperação de senha',
                 actionText: 'Fechar', onTap: () => Modular.to.pop());
           }
+          if (state is NetworkErrorState) {
+            WidgetUtils.showOkDialog(
+                context, 'Sem Internet', state.message!, 'Reload', () {
+              Modular.to.pop();
+            }, permanentDialog: false);
+          }
         },
         builder: (context, state) => Padding(
           padding: const EdgeInsets.all(20.0),

@@ -104,6 +104,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 actionText: 'Fechar', onTap: () => Modular.to.pop());
             Modular.to.pop();
           }
+          if (state is NetworkErrorState) {
+            WidgetUtils.showOkDialog(
+                context, 'Sem Internet', state.message!, 'Reload', () {
+              Modular.to.pop();
+            }, permanentDialog: false);
+          }
         },
         bloc: _blocCreateAccount,
         builder: (context, state) => Padding(

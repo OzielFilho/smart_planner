@@ -8,6 +8,7 @@ abstract class FirebaseAuthService {
       String email, String password);
   Future<String> recoveryPasswordEmail(String email);
   Future<String> createAccount(UserCreateAccountModel userModel);
+  Future<bool> getUserLogged();
 }
 
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
@@ -46,6 +47,15 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
       return '';
     } catch (e) {
       return 'Usuário não pode ser criado';
+    }
+  }
+
+  @override
+  Future<bool> getUserLogged() async {
+    try {
+      return _auth.currentUser != null;
+    } catch (e) {
+      return false;
     }
   }
 }

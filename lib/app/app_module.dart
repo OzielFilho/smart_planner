@@ -9,6 +9,7 @@ import 'package:smart_planner/app/modules/splash/splash_module.dart';
 
 import 'core/services/firestorage_service.dart';
 import 'modules/authentication/authentication_module.dart';
+import 'modules/home/home_module.dart';
 
 class AppModule extends Module {
   @override
@@ -24,5 +25,6 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(Modular.initialRoute, module: SplashModule()),
     ModuleRoute('/authentication', module: AuthenticationModule()),
+    ModuleRoute('/home', module: HomeModule()),
   ];
 }
