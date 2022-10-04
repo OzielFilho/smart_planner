@@ -39,3 +39,7 @@ class SuccessHomeState extends SuccessState {}
 class SuccessRecoveryState extends SuccessState {}
 
 class SuccessCreateAccountState extends SuccessState {}
+
+class SuccessUserLoggedState extends SuccessState {}
+
+class SuccessUserLoggedLoginState extends SuccessState {}

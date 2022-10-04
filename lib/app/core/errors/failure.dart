@@ -14,6 +14,11 @@ class LoginFailure extends Failure {
   List<Object?> get props => const <dynamic>[];
 }
 
+class LoggedUserFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
 class CreateUserFailure extends Failure {
   @override
   List<Object?> get props => const <dynamic>[];
