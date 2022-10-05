@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_planner/app/core/services/firebase_store_service.dart';
+import 'package:smart_planner/app/core/services/firestorage_service.dart';
 import 'package:smart_planner/app/modules/authentication/infrastructure/models/user_create_account_model.dart';
 import 'package:smart_planner/app/modules/authentication/infrastructure/models/user_result_model.dart';
 
@@ -7,14 +10,16 @@ abstract class FirebaseAuthService {
   Future<UserResultModel> loginWithEmailAndPassword(
       String email, String password);
   Future<String> recoveryPasswordEmail(String email);
-  Future<String> createAccount(UserCreateAccountModel userModel);
+  Future<String> createAccount(UserCreateAccountModel userModel, File? image);
   Future<bool> getUserLogged();
 }
 
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
   final FirebaseAuth _auth;
   final FirebaseStoreService _firebaseStoreService;
-  FirebaseAuthServiceImpl(this._auth, this._firebaseStoreService);
+  final FirestorageService _firestorageService;
+  FirebaseAuthServiceImpl(
+      this._auth, this._firebaseStoreService, this._firestorageService);
 
   @override
   Future<UserResultModel> loginWithEmailAndPassword(
@@ -36,12 +41,16 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
   }
 
   @override
-  Future<String> createAccount(UserCreateAccountModel userModel) async {
+  Future<String> createAccount(
+      UserCreateAccountModel userModel, File? image) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: userModel.email, password: userModel.password);
       await _auth.currentUser!.sendEmailVerification();
-
+      if (image != null) {
+        userModel.photo = await _firestorageService.uploadDocument(
+            image, 'users', _auth.currentUser!.uid);
+      }
       _firebaseStoreService.createDocument(
           userModel.toMap(), 'users', _auth.currentUser!.uid);
       return '';

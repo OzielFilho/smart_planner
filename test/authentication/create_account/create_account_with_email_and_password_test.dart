@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -8,6 +10,8 @@ import 'package:smart_planner/app/modules/authentication/domain/usecases/create_
 
 class CreateAccountRepositoryImpl extends Mock
     implements CreateAccountRepository {}
+
+class Filed extends Mock implements File {}
 
 void main() {
   CreateAccountWithEmailAndPassword? usecase;
@@ -24,26 +28,27 @@ void main() {
   });
 
   group('Create Account Group', () {
-    test('Should do login of user if params is not empty and not invalid',
+    test(
+        'Should do create account of user if params is not empty and not invalid',
         () async {
-      when(() => repositoryMock!.createAccountWithEmailAndPassword(any()))
+      when(() =>
+              repositoryMock!.createAccountWithEmailAndPassword(any(), any()))
           .thenAnswer((_) async => right(''));
 
-      final result = await usecase!(userCreate);
+      final result = await usecase!(Params(userCreate, Filed()));
 
       expect(result, right(''));
-      verify(
-          () => repositoryMock!.createAccountWithEmailAndPassword(userCreate));
-      verifyNoMoreInteractions(repositoryMock);
     });
 
     test(
         'Should returns ParamsEmptyCreateAccountFailure if email or password or name is empty',
         () async {
-      when(() => repositoryMock!.createAccountWithEmailAndPassword(any()))
+      when(() =>
+              repositoryMock!.createAccountWithEmailAndPassword(any(), any()))
           .thenAnswer((_) async => left(ParamsEmptyCreateAccountFailure()));
 
-      final result = await usecase!(UserCreateAccount('', '', '', ''));
+      final result =
+          await usecase!(Params(UserCreateAccount('', '', '', ''), Filed()));
 
       expect(result, left(ParamsEmptyCreateAccountFailure()));
     });
@@ -51,11 +56,12 @@ void main() {
     test(
         'Should returns ParamsInvalidCreateAccountFailure if email or password is invalid',
         () async {
-      when(() => repositoryMock!.createAccountWithEmailAndPassword(any()))
+      when(() =>
+              repositoryMock!.createAccountWithEmailAndPassword(any(), any()))
           .thenAnswer((_) async => left(ParamsInvalidCreateAccountFailure()));
 
-      final result =
-          await usecase!(UserCreateAccount('ozile', 'ozie.com', '1234', ''));
+      final result = await usecase!(
+          Params(UserCreateAccount('ozile', 'ozie.com', '1234', ''), Filed()));
 
       expect(result, left(ParamsInvalidCreateAccountFailure()));
     });

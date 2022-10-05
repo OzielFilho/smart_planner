@@ -37,7 +37,7 @@ class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
           if (state is SuccessRecoveryState) {
             WidgetUtils.showSnackBar(context,
                 'Dentro de alguns segundos você receberá um email de recuperação de senha',
-                actionText: 'Fechar', onTap: () => Modular.to.pop());
+                actionText: 'Fechar', onTap: () {});
           }
           if (state is NetworkErrorState) {
             WidgetUtils.showOkDialog(

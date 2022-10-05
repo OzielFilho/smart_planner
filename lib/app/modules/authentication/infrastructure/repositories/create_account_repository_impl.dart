@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:smart_planner/app/modules/authentication/domain/entities/user_create_account.dart';
 
 import 'package:smart_planner/app/core/errors/failure.dart';
@@ -17,13 +19,13 @@ class CreateAccountRepositoryImpl implements CreateAccountRepository {
 
   @override
   Future<Either<Failure, String>> createAccountWithEmailAndPassword(
-      UserCreateAccount user) async {
+      UserCreateAccount user, File? image) async {
     if (!(await _networkService.hasConnection)) {
       return left(NetworkFailure());
     }
     try {
       final result = await _datasource.createAccountWithEmailAndPassword(
-          UserCreateAccountModel.fromUser(user));
+          UserCreateAccountModel.fromUser(user), image);
       return right(result);
     } on CreateAccountException {
       return left(CreateUserFailure());

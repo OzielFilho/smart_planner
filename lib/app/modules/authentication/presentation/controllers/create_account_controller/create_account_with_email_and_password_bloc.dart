@@ -30,7 +30,9 @@ class CreateAccountWithEmailAndPasswordBloc
     }
     final user =
         UserCreateAccount(event.name, event.email, event.password, event.photo);
-    final result = await _createAccountWithEmailAndPassword.call(user);
+
+    final params = Params(user, event.fileImage);
+    final result = await _createAccountWithEmailAndPassword.call(params);
     emit(result.fold((failure) {
       switch (failure.runtimeType) {
         case ParamsEmptyCreateAccountFailure:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:smart_planner/app/core/presentation/controllers/app_state.dart';
+import 'package:smart_planner/app/core/presentation/widgets/loading_desing.dart';
 import 'package:smart_planner/app/core/utils/color_utils.dart';
 import 'package:smart_planner/app/core/utils/widgets_utils.dart';
 import 'package:smart_planner/app/modules/splash/presentation/controllers/get_user_logged_bloc.dart';
@@ -37,6 +38,7 @@ class _SplashPageState extends State<SplashPage> {
           WidgetUtils.showOkDialog(
               context, 'Sem Internet', state.message!, 'Reload', () {
             _blocGetUserLogged.add(const GetUserLoggedEvent());
+            Modular.to.pop();
           }, permanentDialog: false);
         }
         if (state is ErrorState) {
@@ -49,6 +51,7 @@ class _SplashPageState extends State<SplashPage> {
       bloc: _blocGetUserLogged,
       builder: (context, state) => Container(
         color: ColorUtils.primaryColor,
+        child: const LoadingDesign(),
       ),
     );
   }

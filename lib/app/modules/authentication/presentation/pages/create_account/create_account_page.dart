@@ -101,7 +101,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           if (state is SuccessCreateAccountState) {
             _clearControllers();
             WidgetUtils.showSnackBar(context, 'Usuário Criado com Sucesso!',
-                actionText: 'Fechar', onTap: () => Modular.to.pop());
+                actionText: 'Fechar', onTap: () {});
             Modular.to.pop();
           }
           if (state is NetworkErrorState) {
@@ -218,8 +218,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     : ButtonDesign(
                         text: 'Criar Conta',
                         action: () async {
-                          final urlImage =
-                              await _firestorage.uploadDocument(_file, 'users');
                           _blocCreateAccount.add(
                               CreateAccountWithEmailAndPasswordEvent(
                                   email: _controllerEmail.text,
@@ -227,7 +225,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   passwordConfirme:
                                       _controllerPasswordConfirme.text,
                                   name: _controllerName.text,
-                                  photo: urlImage));
+                                  photo: '',
+                                  fileImage: _file));
                         })
               ],
             ),

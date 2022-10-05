@@ -15,9 +15,8 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [
     Bind((i) => FirebaseStoreServiceImpl(FirebaseFirestore.instance)),
-    Bind((i) => FirebaseAuthServiceImpl(FirebaseAuth.instance, i())),
-    Bind((i) => FirestorageServiceImpl(
-        FirebaseStorage.instance, FirebaseAuth.instance)),
+    Bind((i) => FirestorageServiceImpl(FirebaseStorage.instance)),
+    Bind((i) => FirebaseAuthServiceImpl(FirebaseAuth.instance, i(), i())),
     Bind((i) => NetworkServiceImpl()),
   ];
 

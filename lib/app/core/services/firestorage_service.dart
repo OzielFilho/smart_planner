@@ -1,24 +1,22 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 abstract class FirestorageService {
-  Future<String> uploadDocument(File? document, String documentReference);
+  Future<String> uploadDocument(
+      File? document, String documentReference, String documentId);
 }
 
 class FirestorageServiceImpl implements FirestorageService {
   final FirebaseStorage _storage;
-  final FirebaseAuth _auth;
-  FirestorageServiceImpl(this._storage, this._auth);
+  FirestorageServiceImpl(this._storage);
   @override
   Future<String> uploadDocument(
-      File? document, String documentReference) async {
-    final tokenId = _auth.currentUser!.uid;
-    await _storage.ref(documentReference).child(tokenId).putFile(document!);
+      File? document, String documentReference, String documentId) async {
+    await _storage.ref(documentReference).child(documentId).putFile(document!);
     return await _storage
         .ref(documentReference)
-        .child(tokenId)
+        .child(documentId)
         .getDownloadURL();
   }
 }
