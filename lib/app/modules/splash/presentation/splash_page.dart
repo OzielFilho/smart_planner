@@ -51,7 +51,7 @@ class _SplashPageState extends State<SplashPage> {
       bloc: _blocGetUserLogged,
       builder: (context, state) => Container(
         color: ColorUtils.primaryColor,
-        child: const LoadingDesign(),
+        child: const Center(child: LoadingDesign()),
       ),
     );
   }

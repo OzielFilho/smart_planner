@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lum.smart_planner">
    <application
-        android:label="smart_planner"
+        android:label="SmartPlanner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -30,7 +30,10 @@ class LoginWithEmailAndPasswordBloc extends Bloc<LoginEvent, AppState>
           return ErrorState('Não foi possível realizar o login');
       }
     }, (success) {
-      return SuccessHomeState();
+      return success.email.isEmpty
+          ? EmailNotConfirmedState(
+              'Email não confirmado! Confirme sua conta antes de acessar o app')
+          : SuccessHomeState();
     }));
   }
 

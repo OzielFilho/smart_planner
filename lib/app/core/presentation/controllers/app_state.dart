@@ -36,6 +36,10 @@ class ParamsCreateAccountInvalidErrorState extends ErrorState {
 
 class SuccessHomeState extends SuccessState {}
 
+class EmailNotConfirmedState extends ErrorState {
+  EmailNotConfirmedState(super.message);
+}
+
 class SuccessRecoveryState extends SuccessState {}
 
 class SuccessCreateAccountState extends SuccessState {}

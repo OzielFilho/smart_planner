@@ -26,6 +26,10 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
       String email, String password) async {
     final login = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
+    if (!_auth.currentUser!.emailVerified) {
+      await _auth.signOut();
+      return UserResultModel('', '');
+    }
     return UserResultModel(
         login.user?.displayName ?? '', login.user?.email ?? '');
   }
