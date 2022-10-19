@@ -24,6 +24,16 @@ class CreateUserFailure extends Failure {
   List<Object?> get props => const <dynamic>[];
 }
 
+class TodoListFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
+class AddNewItemInTodoListFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
 class RecoveryPasswordFailure extends Failure {
   @override
   List<Object?> get props => const <dynamic>[];
@@ -55,6 +65,16 @@ class ParamsEmptyCreateAccountFailure extends Failure {
 }
 
 class ParamsInvalidCreateAccountFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
+class EmptyListTodoFailure extends Failure {
+  @override
+  List<Object?> get props => const <dynamic>[];
+}
+
+class EmptyParamsAddTodoListFailure extends Failure {
   @override
   List<Object?> get props => const <dynamic>[];
 }

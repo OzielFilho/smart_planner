@@ -17,6 +17,9 @@ class ButtonDesign extends StatelessWidget {
     return MaterialButton(
       height: MediaQuery.of(context).size.height * 0.05,
       onPressed: action,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       color: ColorUtils.whiteColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

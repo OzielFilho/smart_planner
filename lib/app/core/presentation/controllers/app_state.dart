@@ -40,6 +40,22 @@ class EmailNotConfirmedState extends ErrorState {
   EmailNotConfirmedState(super.message);
 }
 
+class EmptyTodoListState extends ErrorState {
+  EmptyTodoListState(super.message);
+}
+
+class EmptyParamsAddNewItemState extends ErrorState {
+  EmptyParamsAddNewItemState(super.message);
+}
+
+class GetTodoListErrorState extends ErrorState {
+  GetTodoListErrorState(super.message);
+}
+
+class AddNewItemInTodoListErrorState extends ErrorState {
+  AddNewItemInTodoListErrorState(super.message);
+}
+
 class SuccessRecoveryState extends SuccessState {}
 
 class SuccessCreateAccountState extends SuccessState {}
@@ -47,3 +63,7 @@ class SuccessCreateAccountState extends SuccessState {}
 class SuccessUserLoggedState extends SuccessState {}
 
 class SuccessUserLoggedLoginState extends SuccessState {}
+
+class SuccessGetTodoListState extends SuccessState {}
+
+class SuccessAddNewItemInTodoListState extends SuccessState {}

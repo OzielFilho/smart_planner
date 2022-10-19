@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:smart_planner/app/core/presentation/widgets/buttons_design.dart';
 import 'package:smart_planner/app/core/presentation/widgets/form_desing.dart';
 import 'package:smart_planner/app/core/presentation/widgets/loading_desing.dart';
-import 'package:smart_planner/app/core/services/firestorage_service.dart';
 import 'package:smart_planner/app/core/utils/color_utils.dart';
 import 'package:smart_planner/app/core/utils/widgets_utils.dart';
 import 'package:smart_planner/app/modules/authentication/presentation/controllers/create_account_controller/create_account_event.dart';
@@ -33,7 +32,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   final _blocCreateAccount =
       Modular.get<CreateAccountWithEmailAndPasswordBloc>();
-  final _firestorage = Modular.get<FirestorageService>();
 
   _clearControllers() {
     _controllerName.clear();

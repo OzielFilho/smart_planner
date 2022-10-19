@@ -12,6 +12,7 @@ abstract class FirebaseAuthService {
   Future<String> recoveryPasswordEmail(String email);
   Future<String> createAccount(UserCreateAccountModel userModel, File? image);
   Future<bool> getUserLogged();
+  String? get getUserId;
 }
 
 class FirebaseAuthServiceImpl implements FirebaseAuthService {
@@ -71,4 +72,7 @@ class FirebaseAuthServiceImpl implements FirebaseAuthService {
       return false;
     }
   }
+
+  @override
+  String? get getUserId => _auth.currentUser?.uid;
 }
